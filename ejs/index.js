@@ -51,22 +51,68 @@
 import express from "express"
 import mongoose from "mongoose";
 import { MongoClient, ServerApiVersion} from "mongodb";
+import bodyParser from "body-parser";
 const app = express();
 const uri = "mongodb+srv://manojtvmtv:DuyrGfMFYmMZ4tGF@cluster0.ezugu8a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 app.listen(3000, () => {
  console.log("App is running");
 });
+app.use(bodyParser.json());
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    age: { type: Number, required: true },
+    dob: { type: Date, required: true }
+   });
+const User = mongoose.model('User', userSchema);
+
+mongoose.connect(uri, {
+  serverApi: ServerApiVersion.v1
+}).then(() => {
+  console.log('Mongoose connected to MongoDB');
+}).catch(error => {
+  console.error('Mongoose connection error:', error);
+});
 
 app.get('/', async (req, res) => {
     try {
-      await mongoose.connect(uri, {
-        serverApi: ServerApiVersion.v1
-      });
-      console.log('Mongoose connected to MongoDB');
+      console.log('Mongoose connected to MongoDB and user created');
       res.send("Hello from GET with success");
     } catch (error) {
       console.error('Mongoose connection error:', error);
       res.send("Hello from GET with error");
+    }
+  });
+
+  app.get('/users', async (req, res) => {
+    try {
+      const users = await User.find(); // Find all users in the collection
+      res.json(users); // Send the list of users as JSON
+    } catch (error) {
+      console.error('Error retrieving users:', error);
+      res.status(500).send("Error retrieving users");
+    }
+  });
+
+  app.post('/users', async (req, res) => {
+    try {
+      const { name, email, age, dob } = req.body;
+      
+      // Create a new user instance
+      const user = new User({
+        name,
+        email,
+        age,
+        dob: new Date(dob) // Convert string to Date object
+      });
+      
+      // Save the user to the database
+      const result = await user.save();
+      console.log('User created:', result);
+      res.status(201).json(result); // Return the created user
+    } catch (error) {
+      console.error('Error creating user:', error);
+      res.status(400).send("Error creating user");
     }
   });
