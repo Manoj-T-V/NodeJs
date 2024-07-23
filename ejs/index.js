@@ -60,6 +60,13 @@ app.listen(3000, () => {
  console.log("App is running");
 });
 app.use(cors());
+app.use((req, res, next) => {
+  console.log('Received request:', req.method, req.url);
+  console.log('Request headers:', req.headers);
+  console.log('Request body:', req.body);
+  next();
+});
+
 app.use(bodyParser.json());
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
