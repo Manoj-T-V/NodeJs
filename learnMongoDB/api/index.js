@@ -36,46 +36,46 @@ app.listen(3000, () => console.log("Server ready on port 3000."));
   
 //   run().catch(console.dir);
 
-  // mongoose.connect(uri, {
-  //   useNewUrlParser: true,
-  //   useUnifiedTopology: true,
-  //   serverApi: ServerApiVersion.v1
-  // }).then(() => {
-  //   console.log('Mongoose connected to MongoDB');
-  // }).catch(err => {
-  //   console.error('Mongoose connection error:', err);
-  // });
+  mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverApi: ServerApiVersion.v1
+  }).then(() => {
+    console.log('Mongoose connected to MongoDB');
+  }).catch(err => {
+    console.error('Mongoose connection error:', err);
+  });
   
-  // const userSchema = new mongoose.Schema({
-  //   name: { type: String, required: true },
-  //   email: { type: String, required: true, unique: true },
-  //   age: { type: Number, required: true },
-  //   dob: { type: Date, required: true }
-  // });
+  const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    age: { type: Number, required: true },
+    dob: { type: Date, required: true }
+  });
   
-  // // Create a model
-  // const User = mongoose.model('User', userSchema);
+  // Create a model
+  const User = mongoose.model('User', userSchema);
 
-  // async function createUser() {
-  //   const user = new User({
-  //     name: "Manoj T V",
-  //     email: "manoj@examplejj.com",
-  //     age: 24,
-  //     dob: new Date('2000-12-05')
-  //   });
+  async function createUser() {
+    const user = new User({
+      name: "Manoj T V",
+      email: "manoj@examplejj.com",
+      age: 24,
+      dob: new Date('2000-12-05')
+    });
   
-  //   try {
-  //     const result = await user.save();
-  //     console.log("User created:", result);
-  //   } catch (error) {
-  //     console.error("Error creating user:", error);
-  //   } finally {
-  //     // Disconnect from MongoDB
-  //     mongoose.disconnect();
-  //   }
-  // }
+    try {
+      const result = await user.save();
+      console.log("User created:", result);
+    } catch (error) {
+      console.error("Error creating user:", error);
+    } finally {
+      // Disconnect from MongoDB
+      mongoose.disconnect();
+    }
+  }
   
-  // createUser();
+  createUser();
 
 
   //mongodb cloud connection ended
