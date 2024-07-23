@@ -52,12 +52,14 @@ import express from "express"
 import mongoose from "mongoose";
 import { MongoClient, ServerApiVersion} from "mongodb";
 import bodyParser from "body-parser";
+import cors from "cors"
 const app = express();
 const uri = "mongodb+srv://manojtvmtv:DuyrGfMFYmMZ4tGF@cluster0.ezugu8a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 app.listen(3000, () => {
  console.log("App is running");
 });
+app.use(cors());
 app.use((req, res, next) => {
   console.log('Received request:', req.method, req.url);
   console.log('Request headers:', req.headers);
@@ -75,10 +77,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 mongoose.connect(uri, {
-  serverApi: ServerApiVersion.v1,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000
+  serverApi: ServerApiVersion.v1
 }).then(() => {
   console.log('Mongoose connected to MongoDB');
 }).catch(error => {
