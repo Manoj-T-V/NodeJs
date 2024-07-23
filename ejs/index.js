@@ -52,12 +52,14 @@ import express from "express"
 import mongoose from "mongoose";
 import { MongoClient, ServerApiVersion} from "mongodb";
 import bodyParser from "body-parser";
+import cors from "cors"
 const app = express();
 const uri = "mongodb+srv://manojtvmtv:DuyrGfMFYmMZ4tGF@cluster0.ezugu8a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 app.listen(3000, () => {
  console.log("App is running");
 });
+app.use(cors());
 app.use(bodyParser.json());
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
