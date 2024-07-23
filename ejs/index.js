@@ -75,7 +75,10 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 mongoose.connect(uri, {
-  serverApi: ServerApiVersion.v1
+  serverApi: ServerApiVersion.v1,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000
 }).then(() => {
   console.log('Mongoose connected to MongoDB');
 }).catch(error => {
