@@ -1,0 +1,6 @@
+import express from "express";
+import mangoose from "mangoose";
+
+mongoose.connect()
+
+
