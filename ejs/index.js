@@ -14,7 +14,7 @@ app.listen(3000, () => {
 app.use(express.json());
 app.use(cors());
 app.use('/api/products', productRoutes);
-app.use('/api/auth', authRoutes);
+//app.use('/api/auth', authRoutes);
 app.use((req, res, next) => {
   console.log('Request body:', req.body);
   next();
