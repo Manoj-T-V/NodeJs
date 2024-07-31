@@ -1,10 +1,10 @@
 import express from 'express';
-import productController from '../controllers/productController.js';
+import productController from '../controllers/taskController.js';
 
 const router = express.Router();
 
-router.get('/', productController.getProducts);
+router.get('/', productController.getAllTasks);
 
-router.post('/', productController.createProduct);
+router.post('/', productController.createTask);
 
 export default router;
