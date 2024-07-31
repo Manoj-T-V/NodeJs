@@ -18,8 +18,8 @@ app.listen(3000, () => {
 app.use(express.json());
 app.use(cors());
 app.use('/api/products', productRoutes);
-app.use('/api/tasks', tasks);
-app.use('/api/auth', auth);
+//app.use('/api/tasks', tasks);
+//app.use('/api/auth', auth);
 app.use((req, res, next) => {
   console.log('Request body:', req.body);
   next();
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
     age: { type: Number, required: true },
     dob: { type: Date, required: true }
    });
-const User = mongoose.model('Dummy', userSchema);
+const Dummy = mongoose.model('Dummy', userSchema);
 
 mongoose.connect(process.env.MONGODB_URI, {
   serverApi: ServerApiVersion.v1
@@ -51,7 +51,7 @@ app.get('/', async (req, res) => {
 
   app.get('/users', async (req, res) => {
     try {
-      const users = await User.find(); // Find all users in the collection
+      const users = await Dummy.find(); // Find all users in the collection
       res.json(users); // Send the list of users as JSON
     } catch (error) {
       console.error('Error retrieving users:', error);
@@ -64,7 +64,7 @@ app.get('/', async (req, res) => {
       const { name, email, age, dob } = req.body;
       
       // Create a new user instance
-      const user = new User({
+      const user = new Dummy({
         name,
         email,
         age,
@@ -72,7 +72,7 @@ app.get('/', async (req, res) => {
       });
       
       // Save the user to the database
-      const result = await user.save();
+      const result = await Dummy.save();
       console.log('User created:', result);
       res.status(201).json(result); // Return the created user
     } catch (error) {
