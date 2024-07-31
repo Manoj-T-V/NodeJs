@@ -1,7 +1,6 @@
 import express from 'express';
 const router = express.Router();
 import authController from '../controllers/authController.js'; 
-import passport from 'passport';
 
 router.post('/register', authController.register);
 router.post('/login', authController.login);
