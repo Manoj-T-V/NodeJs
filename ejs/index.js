@@ -1,6 +1,6 @@
 import express from "express"
 import productRoutes from './routes/productRoutes.js';
-import authRoutes from './routes/auth.js';
+//import authRoutes from './routes/auth.js';
 import mongoose from "mongoose";
 import { MongoClient, ServerApiVersion} from "mongodb";
 import cors from "cors"
