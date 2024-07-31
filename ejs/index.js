@@ -1,6 +1,6 @@
 import express from "express"
 import productRoutes from './routes/productRoutes.js';
-import authRoutes from './routes/auth.js';
+import auth from './routes/auth.js';
 import mongoose from "mongoose";
 import { MongoClient, ServerApiVersion} from "mongodb";
 import cors from "cors"
@@ -14,7 +14,7 @@ app.listen(3000, () => {
 app.use(express.json());
 app.use(cors());
 app.use('/api/products', productRoutes);
-//app.use('/api/auth', authRoutes);
+app.use('/api/auth', auth);
 app.use((req, res, next) => {
   console.log('Request body:', req.body);
   next();
