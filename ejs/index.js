@@ -17,11 +17,7 @@ app.listen(5000, () => {
 });
 app.use(express.json());
 app.use(cors());
-app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests from this origin
-  methods: ['GET', 'POST'],
-  credentials: true, // Allow cookies to be sent with requests
-}));
+
 app.use('/api/products', productRoutes);
 app.use('/api/auth', auth);
 app.use('/api/tasks', tasks);
