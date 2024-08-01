@@ -4,16 +4,24 @@ import auth from './routes/auth.js';
 import tasks from './routes/tasks.js';
 import mongoose from "mongoose";
 import { MongoClient, ServerApiVersion} from "mongodb";
+import session from 'express-session'; 
+import passport from './config/passport.js';
 import cors from "cors"
 import { config } from "dotenv";
+import './config/passport.js';
 config(); //load env variables
 const app = express();
 
-app.listen(3000, () => {
+app.listen(5000, () => {
  console.log("App is running");
 });
 app.use(express.json());
 app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // Allow requests from this origin
+  methods: ['GET', 'POST'],
+  credentials: true, // Allow cookies to be sent with requests
+}));
 app.use('/api/products', productRoutes);
 app.use('/api/auth', auth);
 app.use('/api/tasks', tasks);
@@ -21,6 +29,15 @@ app.use((req, res, next) => {
   console.log('Request body:', req.body);
   next();
 });
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
