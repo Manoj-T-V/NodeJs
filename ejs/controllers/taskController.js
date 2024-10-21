@@ -86,9 +86,9 @@ const deleteTask = async (req, res) => {
       return res.status(404).json({ msg: 'Task not found or not authorized' });
     }
 
-    await Task.deleteOne({ _id: req.params.id });
+   // await Task.deleteOne({ _id: req.params.id });
     console.log('Task deleted successfully');
-    res.json({ msg: 'Task removed' });
+    res.json({ msg: 'Task removal feature temporarily removed by the admin' });
   } catch (err) {
     console.log(err);
     res.status(500).json({ msg: 'Server error' , error:err});
